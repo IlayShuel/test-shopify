@@ -1,0 +1,103 @@
+<div class="reviews">
+  <div class="reviews__inner">
+    <p class="section-label fade-in">Отзывы</p>
+    <h2 class="section-heading fade-in">
+      Они уже <em>получили свою песню</em>
+    </h2>
+
+    <div class="reviews__grid fade-in">
+      {%- for block in section.blocks -%}
+        <div class="review-card" {{ block.shopify_attributes }}>
+          <div class="review-card__quote">&ldquo;</div>
+          <p class="review-card__text">{{ block.settings.text }}</p>
+          <div class="review-card__author">
+            {%- if block.settings.photo -%}
+              <img
+                src="{{ block.settings.photo | image_url: width: 80, height: 80 }}"
+                alt="{{ block.settings.name }}"
+                class="review-card__avatar"
+                width="40"
+                height="40"
+                loading="lazy"
+              >
+            {%- else -%}
+              <div class="review-card__avatar-initials" aria-hidden="true">
+                {{ block.settings.name | slice: 0 }}
+              </div>
+            {%- endif -%}
+            <div>
+              <div class="review-card__name">{{ block.settings.name }}</div>
+              <div class="review-card__loc">{{ block.settings.location }}</div>
+              <div class="review-card__stars">★★★★★</div>
+            </div>
+          </div>
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Reviews",
+  "blocks": [
+    {
+      "type": "review",
+      "name": "Review",
+      "settings": [
+        { "type": "textarea",     "id": "text",     "label": "Review text" },
+        { "type": "text",         "id": "name",     "label": "Reviewer name" },
+        { "type": "text",         "id": "location", "label": "Location" },
+        { "type": "image_picker", "id": "photo",    "label": "Photo (optional)" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Reviews",
+      "blocks": [
+        {
+          "type": "review",
+          "settings": {
+            "text": "Заказала для мамы на 60-летие. Когда она услышала своё имя и наши общие воспоминания в песне — заплакала. Сказала, что это лучший подарок в её жизни.",
+            "name": "Марина К.",
+            "location": "Москва"
+          }
+        },
+        {
+          "type": "review",
+          "settings": {
+            "text": "Муж лишился дара речи. Я включила на нашу годовщину — там рассказывалось о нашем первом свидании, слово в слово. Он до сих пор слушает это каждое утро.",
+            "name": "Анна Р.",
+            "location": "Берлин"
+          }
+        },
+        {
+          "type": "review",
+          "settings": {
+            "text": "Сделали для сына перед армией. Вся семья плакала. Даже дедушка, который никогда не плачет, не смог сдержаться. Невероятно личное и трогательное.",
+            "name": "Елена С.",
+            "location": "Прага"
+          }
+        },
+        {
+          "type": "review",
+          "settings": {
+            "text": "На юбилей папы — он совсем не ожидал. Мы включили в конце вечера, и все замолчали. Потом — аплодисменты. Ни один подарок не имел такого эффекта.",
+            "name": "Дмитрий В.",
+            "location": "Вена"
+          }
+        },
+        {
+          "type": "review",
+          "settings": {
+            "text": "Заказала на свадьбу лучшей подруги как сюрприз. Невеста плакала, все гости тоже. Рекомендую всем!",
+            "name": "Оля Б.",
+            "location": "Барселона"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="{{ request.locale.iso_code }}" class="no-js">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, height=device-height, minimum-scale=1.0">
+  <meta name="theme-color" content="#FDF6EE">
+
+  <title>{{ page_title }}{% if current_tags %} – {{ current_tags | join: ', ' }}{% endif %}{% if current_page != 1 %} – {{ 'general.meta.page' | t }} {{ current_page }}{% endif %}{% unless page_title contains shop.name %} – {{ shop.name }}{% endunless %}</title>
+
+  {% if page_description %}
+    <meta name="description" content="{{ page_description | escape }}">
+  {% endif %}
+
+  <link rel="canonical" href="{{ canonical_url }}">
+
+  {% if settings.favicon %}
+    <link rel="icon" type="image/png" href="{{ settings.favicon | image_url: width: 32, height: 32 }}">
+  {% endif %}
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+
+  {{ content_for_header }}
+
+  {{ 'theme.css' | asset_url | stylesheet_tag }}
+</head>
+
+<body class="template-{{ template | replace: '.', ' ' | truncatewords: 1, '' | handle }}">
+
+  {%- section 'announcement-bar' -%}
+  {%- section 'header' -%}
+
+  <main id="MainContent" role="main" tabindex="-1">
+    {{ content_for_layout }}
+  </main>
+
+  {%- section 'footer' -%}
+
+  {%- render 'order-modal' -%}
+  {%- render 'cart-drawer' -%}
+
+  <script>
+    // Pass Shopify data to JS
+    window.shopifyTheme = {
+      standardVariantId: {{ settings.standard_variant_id | default: 0 }},
+      premiumVariantId: {{ settings.premium_variant_id | default: 0 }},
+      shopCurrency: "{{ shop.currency }}",
+      song1Url: "{{ 'masha-i-kofe.mp3' | asset_url }}",
+      song2Url: "{{ 'nastya-ty-moya-vselennaya.mp3' | asset_url }}",
+      discountCodes: "{{ settings.discount_codes | upcase | escape }}",
+      discountPct: {{ settings.discount_pct | default: 20 }},
+      currencyCode: "{{ localization.country.currency.iso_code }}",
+      currencySymbol: "{{ localization.country.currency.symbol | escape }}",
+      {% if localization.country.currency.iso_code == 'USD' %}
+      standardPrice: {{ settings.standard_price_usd | default: 29 }},
+      premiumPrice: {{ settings.premium_price_usd | default: 35 }},
+      standardComparePrice: {{ settings.standard_compare_price_usd | default: 0 }},
+      premiumComparePrice: {{ settings.premium_compare_price_usd | default: 0 }}
+      {% else %}
+      standardPrice: {{ settings.standard_price | default: 16 }},
+      premiumPrice: {{ settings.premium_price | default: 30 }},
+      standardComparePrice: {{ settings.standard_compare_price | default: 0 }},
+      premiumComparePrice: {{ settings.premium_compare_price | default: 0 }}
+      {% endif %}
+    };
+  </script>
+  <script src="{{ 'theme.js' | asset_url }}" defer></script>
+
+</body>
+</html>

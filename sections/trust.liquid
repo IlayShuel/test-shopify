@@ -1,0 +1,97 @@
+<div class="trust">
+  <div class="trust__inner">
+
+    <!-- Payment methods -->
+    <div class="payment-bar fade-in">
+      <span class="payment-bar__label">Способы оплаты</span>
+      <span class="payment-bar__divider" aria-hidden="true"></span>
+      <div class="payment-badge" aria-label="VISA">
+        <span style="font-weight:800;font-style:italic;color:#1A1F71;font-size:15px;letter-spacing:-0.5px;">VISA</span>
+      </div>
+      <div class="payment-badge" aria-label="Mastercard">
+        <span style="display:flex;align-items:center;">
+          <span style="width:22px;height:22px;border-radius:50%;background:#EB001B;opacity:0.9;display:inline-block;"></span>
+          <span style="width:22px;height:22px;border-radius:50%;background:#F79E1B;opacity:0.9;display:inline-block;margin-left:-10px;"></span>
+        </span>
+      </div>
+      <div class="payment-badge" aria-label="Google Pay">
+        <span style="font-size:13px;font-weight:700;">
+          <span style="color:#4285F4">G</span><span style="color:#EA4335">o</span><span style="color:#FBBC05">o</span><span style="color:#4285F4">g</span><span style="color:#34A853">l</span><span style="color:#EA4335">e</span><span style="color:#3c4043;font-weight:700;"> Pay</span>
+        </span>
+      </div>
+      <div class="payment-badge" aria-label="Apple Pay">
+        <span style="font-size:13px;font-weight:600;color:#1d1d1f;">🍎 Pay</span>
+      </div>
+    </div>
+
+    <p class="trust__pci fade-in">🔐 Все транзакции зашифрованы и защищены стандартом PCI DSS</p>
+
+    <!-- Trust cards -->
+    <div class="trust__grid">
+      {%- for block in section.blocks -%}
+        <div class="trust-card fade-in" {{ block.shopify_attributes }}>
+          <div class="trust-card__icon">{{ block.settings.icon }}</div>
+          <h3 class="trust-card__title">{{ block.settings.title }}</h3>
+          <p class="trust-card__desc">{{ block.settings.description }}</p>
+        </div>
+      {%- endfor -%}
+    </div>
+
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Trust & Security",
+  "blocks": [
+    {
+      "type": "trust_item",
+      "name": "Trust item",
+      "settings": [
+        { "type": "text",     "id": "icon",        "label": "Emoji icon" },
+        { "type": "text",     "id": "title",       "label": "Title" },
+        { "type": "textarea", "id": "description", "label": "Description" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Trust & Security",
+      "blocks": [
+        {
+          "type": "trust_item",
+          "settings": {
+            "icon": "🔒",
+            "title": "Безопасная оплата",
+            "description": "Платежи защищены международным стандартом PCI DSS. Ваши данные карты никогда не попадают к нам."
+          }
+        },
+        {
+          "type": "trust_item",
+          "settings": {
+            "icon": "⚡",
+            "title": "Быстрая доставка",
+            "description": "Песня отправляется на ваш email в течение 24–72 часов после оплаты — гарантированно."
+          }
+        },
+        {
+          "type": "trust_item",
+          "settings": {
+            "icon": "🎵",
+            "title": "Только для вас",
+            "description": "Каждая песня пишется с нуля специально под вашу историю. Никаких шаблонов."
+          }
+        },
+        {
+          "type": "trust_item",
+          "settings": {
+            "icon": "✅",
+            "title": "Гарантия качества",
+            "description": "Не понравился результат? Пакет Premium включает бесплатный раунд правок."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

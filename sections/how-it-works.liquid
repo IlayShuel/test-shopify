@@ -1,0 +1,69 @@
+<section id="how" class="how-it-works">
+  <p class="section-label fade-in">Как это работает</p>
+  <h2 class="section-heading fade-in">
+    Три шага до <em>вашей песни</em>
+  </h2>
+  <p class="section-subtext fade-in">
+    Вам не нужны специальные навыки. Просто расскажите историю — мы сделаем всё остальное.
+  </p>
+
+  <div class="how-it-works__grid fade-in">
+    {%- for block in section.blocks -%}
+      <div class="step-card" {{ block.shopify_attributes }}>
+        <div class="step-card__top-bar" aria-hidden="true"></div>
+        <div class="step-card__number" aria-hidden="true">{{ forloop.index }}</div>
+        <div class="step-card__icon">{{ block.settings.icon }}</div>
+        <h3 class="step-card__title">{{ block.settings.title }}</h3>
+        <p class="step-card__desc">{{ block.settings.description }}</p>
+      </div>
+    {%- endfor -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "How It Works",
+  "blocks": [
+    {
+      "type": "step",
+      "name": "Step",
+      "settings": [
+        { "type": "text", "id": "icon",        "label": "Emoji icon",   "default": "📝" },
+        { "type": "text", "id": "title",       "label": "Title",        "default": "Расскажите историю" },
+        { "type": "textarea", "id": "description", "label": "Description", "default": "Заполните форму — имя, повод и несколько деталей об этом человеке." }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "How It Works",
+      "blocks": [
+        {
+          "type": "step",
+          "settings": {
+            "icon": "📝",
+            "title": "Расскажите историю",
+            "description": "Заполните форму — имя, повод и несколько деталей об этом человеке. Смешные воспоминания, любимые увлечения, что делает его особенным."
+          }
+        },
+        {
+          "type": "step",
+          "settings": {
+            "icon": "🎼",
+            "title": "Мы пишем песню",
+            "description": "В течение 24 часов мы создаём уникальные слова об этом конкретном человеке и мелодию в выбранном вами стиле."
+          }
+        },
+        {
+          "type": "step",
+          "settings": {
+            "icon": "📩",
+            "title": "Получите на почту",
+            "description": "Готовый MP3 придёт прямо на вашу почту. Включите его на праздновании — и готовьтесь к незабываемой реакции."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

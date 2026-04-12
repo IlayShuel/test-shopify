@@ -1,0 +1,78 @@
+<div class="faq">
+  <p class="section-label fade-in">FAQ</p>
+  <h2 class="section-heading fade-in">
+    Часто задаваемые <em>вопросы</em>
+  </h2>
+
+  <div class="faq__list fade-in">
+    {%- for block in section.blocks -%}
+      <div class="faq__item" {{ block.shopify_attributes }}>
+        <button class="faq__question" aria-expanded="false">
+          {{ block.settings.question }}
+          <span class="faq__icon" aria-hidden="true">+</span>
+        </button>
+        <div class="faq__answer" role="region">
+          {{ block.settings.answer }}
+        </div>
+      </div>
+    {%- endfor -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "FAQ",
+  "blocks": [
+    {
+      "type": "faq_item",
+      "name": "FAQ item",
+      "settings": [
+        { "type": "text",     "id": "question", "label": "Question" },
+        { "type": "textarea", "id": "answer",   "label": "Answer" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "FAQ",
+      "blocks": [
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "Насколько личной будет песня?",
+            "answer": "Каждая песня пишется с нуля специально для вас. Мы используем имя, историю и детали, которые вы нам сообщаете. Никаких шаблонов."
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "Что если результат мне не понравится?",
+            "answer": "Мы предлагаем бесплатные правки — 1 для стандартного пакета, 3 для премиума. Просто напишите нам, и мы переделаем."
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "Как быстро я получу песню?",
+            "answer": "Стандарт — в течение 24 часов. Премиум — в течение 12 часов. Готовый MP3 отправляется прямо на вашу почту."
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "Это живые певцы или ИИ?",
+            "answer": "Мы используем передовые технологии ИИ. Качество профессиональное — большинство слушателей не могут отличить от живой записи."
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "Могу ли я использовать песню публично?",
+            "answer": "Да. Песня полностью ваша. Включайте на праздниках, публикуйте в соцсетях, делитесь с близкими."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

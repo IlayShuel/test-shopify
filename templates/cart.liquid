@@ -1,0 +1,140 @@
+<div class="cart-page">
+  <div class="cart-page__inner">
+
+    {%- if cart.item_count == 0 -%}
+
+      <div class="cart-page__empty">
+        <div class="cart-page__empty-icon">🎵</div>
+        <h1 class="cart-page__empty-title">Ваша корзина пуста</h1>
+        <p class="cart-page__empty-text">Закажите уникальную песню для близкого человека</p>
+        <a href="{{ routes.root_url }}" class="cart-page__cta">← Заказать песню</a>
+      </div>
+
+    {%- else -%}
+
+      <h1 class="cart-page__title">🛒 Ваша корзина</h1>
+
+      <div class="cart-page__layout">
+
+        <!-- Items column -->
+        <div class="cart-page__items" id="cart-page-items">
+          {%- for item in cart.items -%}
+            <div class="cart-page-item" data-key="{{ item.key }}">
+
+              <div class="order-card">
+
+                <!-- Header: title + price -->
+                <div class="order-card__header">
+                  <span class="order-card__icon">🎵</span>
+                  <div class="order-card__header-info">
+                    <div class="order-card__title">{{ item.product_title }}</div>
+                    <div class="order-card__price">{{ item.final_line_price | money }}</div>
+                  </div>
+                </div>
+
+                <!-- Properties list -->
+                {%- assign has_props = false -%}
+                {%- for p in item.properties -%}
+                  {%- unless p.last == blank -%}
+                    {%- assign has_props = true -%}
+                  {%- endunless -%}
+                {%- endfor -%}
+
+                {%- if has_props -%}
+                <div class="order-card__details">
+                  {%- for p in item.properties -%}
+                    {%- unless p.last == blank or p.first == 'История' or p.first == 'Email' -%}
+                      <div class="order-card__row">
+                        <span class="order-card__label">{{ p.first }}</span>
+                        <span class="order-card__value">{{ p.last }}</span>
+                      </div>
+                    {%- endunless -%}
+                  {%- endfor -%}
+
+                  {%- for p in item.properties -%}
+                    {%- if p.first == 'История' and p.last != blank -%}
+                      <div class="order-card__story">
+                        <div class="order-card__story-label">✍️ Ваша история</div>
+                        <div class="order-card__story-text">{{ p.last }}</div>
+                      </div>
+                    {%- endif -%}
+                  {%- endfor -%}
+                </div>
+                {%- endif -%}
+
+                <!-- Footer: qty + remove -->
+                <div class="order-card__footer">
+                  <div class="qty-control">
+                    <button class="qty-btn" data-action="dec" aria-label="Уменьшить">−</button>
+                    <span class="qty-value">{{ item.quantity }}</span>
+                    <button class="qty-btn" data-action="inc" aria-label="Увеличить">+</button>
+                  </div>
+                  <button class="cart-item__remove" aria-label="Удалить">🗑 Удалить</button>
+                </div>
+
+              </div>
+
+            </div>
+          {%- endfor -%}
+        </div>
+
+        <!-- Summary column -->
+        <div class="cart-page__summary">
+
+          <!-- Discount code -->
+          <div class="cart-summary__discount">
+            <p class="cart-summary__section-label">Промокод</p>
+            <div class="discount-row">
+              <input
+                type="text"
+                id="cart-page-discount-input"
+                class="discount-input"
+                placeholder="Введите промокод..."
+                autocomplete="off"
+                autocapitalize="characters"
+              >
+              <button class="discount-apply-btn" id="cart-page-discount-btn">Применить</button>
+            </div>
+            <div class="discount-feedback" id="cart-page-discount-feedback"></div>
+          </div>
+
+          <!-- Totals -->
+          <div class="cart-summary__totals">
+            <div class="cart-summary__row">
+              <span>Подытог</span>
+              <span id="cart-page-subtotal" data-cents="{{ cart.total_price }}">{{ cart.total_price | money }}</span>
+            </div>
+            <div class="cart-summary__row cart-summary__discount-row" id="cart-page-discount-line" style="display:none">
+              <span>Скидка (<span id="cart-page-code-label"></span>)</span>
+              <span class="cart-summary__discount-amount" id="cart-page-discount-amount"></span>
+            </div>
+            <div class="cart-summary__row cart-summary__total">
+              <span>Итого</span>
+              <span id="cart-page-total">{{ cart.total_price | money }}</span>
+            </div>
+          </div>
+
+          <!-- CTAs -->
+          <button class="cart-page__checkout-btn" id="cart-page-checkout-btn">
+            Оплатить →
+          </button>
+          <a href="{{ routes.root_url }}" class="cart-page__continue-btn">
+            ← Продолжить покупки
+          </a>
+
+          <p class="cart-summary__note">🔒 Безопасная оплата · ⚡ Доставка за 24–72 часа</p>
+        </div>
+
+      </div>
+
+    {%- endif -%}
+
+  </div>
+</div>
+
+<script>
+  // Initialize cart page on DOMContentLoaded
+  document.addEventListener('DOMContentLoaded', function () {
+    if (typeof CartPage !== 'undefined') CartPage.init();
+  });
+</script>

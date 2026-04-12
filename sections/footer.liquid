@@ -1,0 +1,67 @@
+<footer class="site-footer" role="contentinfo">
+  <div class="site-footer__logo">
+    {%- if section.settings.logo -%}
+      <img
+        src="{{ section.settings.logo | image_url: width: 128, height: 128 }}"
+        alt="{{ shop.name }}"
+        class="site-footer__logo-img"
+        width="64"
+        height="64"
+        loading="lazy"
+      >
+    {%- else -%}
+      <img
+        src="{{ 'logo.jpeg' | asset_url }}"
+        alt="{{ shop.name }}"
+        class="site-footer__logo-img"
+        width="64"
+        height="64"
+        loading="lazy"
+      >
+    {%- endif -%}
+    <span class="site-footer__logo-name">{{ section.settings.brand_name | default: 'ТвояПесня' }}</span>
+  </div>
+
+  <p class="site-footer__tagline">
+    {{ section.settings.tagline | default: 'Персонализированные песни, трогающие сердце' }}
+  </p>
+
+  <nav class="site-footer__nav" aria-label="Footer navigation">
+    <a href="#how">Как это работает</a>
+    <a href="#samples">Примеры</a>
+    <a href="#pricing">Цены</a>
+  </nav>
+
+  <div class="site-footer__legal">
+    <a href="/pages/privacy">Политика конфиденциальности</a>
+    <a href="/pages/terms">Условия использования</a>
+    <a href="/pages/accessibility">Доступность</a>
+  </div>
+
+  <p class="site-footer__copy">© {{ 'now' | date: '%Y' }} {{ shop.name }} · Сделано с ❤️</p>
+</footer>
+
+{% schema %}
+{
+  "name": "Footer",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Logo image"
+    },
+    {
+      "type": "text",
+      "id": "brand_name",
+      "label": "Brand name",
+      "default": "YourSong"
+    },
+    {
+      "type": "text",
+      "id": "tagline",
+      "label": "Tagline",
+      "default": "Персонализированные песни, трогающие сердце"
+    }
+  ]
+}
+{% endschema %}

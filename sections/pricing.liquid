@@ -1,0 +1,101 @@
+<div id="pricing" class="pricing">
+  <div class="pricing__inner">
+    <p class="section-label fade-in">Цены</p>
+    <h2 class="section-heading fade-in">
+      Выберите <em>свой пакет</em>
+    </h2>
+
+    <div class="pricing__grid">
+      {%- for block in section.blocks -%}
+        {%- assign is_popular = block.settings.popular -%}
+        <div class="plan-card fade-in {% if is_popular %}popular{% endif %}" {{ block.shopify_attributes }}>
+          {%- if is_popular -%}
+            <div class="plan-card__badge">⭐ Самый популярный</div>
+          {%- endif -%}
+
+          <div class="plan-card__tier">{{ block.settings.tier_name }}</div>
+          <div class="plan-card__price">
+            <span class="currency">{{ localization.country.currency.symbol }}</span>{{ block.settings.price_number }}
+          </div>
+          <div class="plan-card__desc">{{ block.settings.description }}</div>
+
+          <ul class="plan-card__features">
+            {%- assign features = block.settings.features | newline_to_br | split: '<br />' -%}
+            {%- for feature in features -%}
+              {%- assign feat = feature | strip -%}
+              {%- if feat != '' -%}
+                <li class="plan-card__feature">
+                  <span class="plan-card__feature-check">✓</span>
+                  {{ feat }}
+                </li>
+              {%- endif -%}
+            {%- endfor -%}
+          </ul>
+
+          <button
+            class="btn-plan {% if is_popular %}btn-plan-filled{% else %}btn-plan-outline{% endif %}"
+            data-package="{{ block.settings.package_key }}"
+            data-open-modal
+          >
+            {{ block.settings.cta_label | default: 'Заказать' }}
+          </button>
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Pricing",
+  "blocks": [
+    {
+      "type": "plan",
+      "name": "Pricing plan",
+      "settings": [
+        { "type": "text",     "id": "tier_name",       "label": "Tier name",            "default": "Standard" },
+        { "type": "text",     "id": "currency_symbol",  "label": "Currency symbol",      "default": "€" },
+        { "type": "text",     "id": "price_number",     "label": "Price (number only)",  "default": "20" },
+        { "type": "text",     "id": "description",      "label": "Short description",    "default": "Для особого момента" },
+        { "type": "textarea", "id": "features",         "label": "Features (one per line)" },
+        { "type": "text",     "id": "cta_label",        "label": "Button label",         "default": "Заказать" },
+        { "type": "text",     "id": "package_key",      "label": "Package key (standard / premium)" },
+        { "type": "checkbox", "id": "popular",          "label": "Mark as popular",      "default": false }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Pricing",
+      "blocks": [
+        {
+          "type": "plan",
+          "settings": {
+            "tier_name": "Standard",
+            "currency_symbol": "€",
+            "price_number": "20",
+            "description": "Для особого момента",
+            "features": "Уникальные слова, написанные специально для вас\nПрофессиональная запись с музыкой\nДоставка в течение 24 часов\nMP3-файл — ваш навсегда\n1 бесплатная правка",
+            "cta_label": "Заказать",
+            "package_key": "standard",
+            "popular": false
+          }
+        },
+        {
+          "type": "plan",
+          "settings": {
+            "tier_name": "Premium",
+            "currency_symbol": "€",
+            "price_number": "30",
+            "description": "Для незабываемого подарка",
+            "features": "Уникальные слова, написанные специально для вас\nПрофессиональная запись с музыкой\nСрочная доставка за 12 часов\n2 варианта песни на выбор\nВидео с текстом для соцсетей\n3 бесплатные правки\nФайлы MP3 + WAV",
+            "cta_label": "Заказать сейчас",
+            "package_key": "premium",
+            "popular": true
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

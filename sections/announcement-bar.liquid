@@ -1,0 +1,27 @@
+{% assign ticker_text = section.settings.ticker_text | default: '🎁 Скидка 20% — Промокод: SONG20' %}
+{% assign separator = '   •   ' %}
+
+<div class="announcement-bar">
+  <div class="ticker-track">
+    {%- for i in (1..12) -%}
+      <span>{{ ticker_text }}{{ separator }}</span>
+    {%- endfor -%}
+    {%- for i in (1..12) -%}
+      <span aria-hidden="true">{{ ticker_text }}{{ separator }}</span>
+    {%- endfor -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Announcement Bar",
+  "settings": [
+    {
+      "type": "text",
+      "id": "ticker_text",
+      "label": "Ticker text",
+      "default": "🎁 Скидка 20% — Промокод: SONG20"
+    }
+  ]
+}
+{% endschema %}

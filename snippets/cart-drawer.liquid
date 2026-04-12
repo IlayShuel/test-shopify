@@ -1,0 +1,77 @@
+<!-- Cart Drawer -->
+<div id="cart-drawer" class="cart-drawer" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Корзина">
+
+  <div class="cart-drawer__overlay" data-close-cart></div>
+
+  <div class="cart-drawer__panel">
+
+    <!-- Header -->
+    <div class="cart-drawer__header">
+      <h2 class="cart-drawer__title">
+        🛒 Корзина
+        <span class="cart-drawer__item-count" id="drawer-item-count"></span>
+      </h2>
+      <button class="cart-drawer__close" data-close-cart aria-label="Закрыть">×</button>
+    </div>
+
+    <!-- Body -->
+    <div class="cart-drawer__body" id="cart-drawer-body">
+      <div class="cart-drawer__empty" id="cart-drawer-empty">
+        <div class="cart-drawer__empty-icon">🎵</div>
+        <p>Корзина пуста</p>
+        <button class="cart-drawer__shop-btn" data-close-cart>Заказать песню</button>
+      </div>
+    </div>
+
+    <!-- Footer (hidden when empty) -->
+    <div class="cart-drawer__footer" id="cart-drawer-footer" style="display:none">
+
+      <!-- Discount code input -->
+      <div class="cart-drawer__discount">
+        <div class="discount-row" id="drawer-discount-entry">
+          <input
+            type="text"
+            id="drawer-discount-input"
+            class="discount-input"
+            placeholder="Промокод..."
+            autocomplete="off"
+            autocapitalize="characters"
+          >
+          <button class="discount-apply-btn" id="drawer-discount-btn">OK</button>
+        </div>
+        <div class="discount-feedback" id="drawer-discount-feedback"></div>
+      </div>
+
+      <!-- Price summary -->
+      <div class="cart-drawer__summary">
+        <div class="cart-drawer__summary-row">
+          <span>Подытог</span>
+          <span id="cart-drawer-subtotal">—</span>
+        </div>
+        <div class="cart-drawer__summary-row cart-drawer__discount-row" id="drawer-discount-line" style="display:none">
+          <span>Скидка (<span id="drawer-code-label"></span>)</span>
+          <span class="cart-drawer__discount-saving" id="drawer-discount-saving"></span>
+        </div>
+        <div class="cart-drawer__summary-row cart-drawer__total-row">
+          <strong>Итого</strong>
+          <span class="cart-drawer__subtotal-price" id="cart-drawer-total">—</span>
+        </div>
+      </div>
+
+      <button class="cart-drawer__checkout-btn" id="cart-checkout-btn">
+        Оплатить →
+      </button>
+      <button class="cart-drawer__continue-btn" data-close-cart>
+        ← Продолжить покупки
+      </button>
+
+    </div>
+
+  </div>
+</div>
+
+<!-- Return-from-checkout bar -->
+<div id="cart-return-bar" class="cart-return-bar" style="display:none">
+  <span>Хотите изменить заказ?</span>
+  <button class="cart-return-bar__btn" data-open-cart>← Вернуться в корзину</button>
+</div>

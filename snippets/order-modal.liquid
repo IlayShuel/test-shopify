@@ -1,0 +1,166 @@
+<!-- Order Modal — 6-step form that adds to Shopify cart and redirects to checkout -->
+<div id="order-modal-overlay" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-title-text">
+
+  <div class="modal-box">
+
+    <!-- Progress bar -->
+    <div class="modal-progress">
+      <div class="modal-progress-fill" style="width:16.66%"></div>
+    </div>
+
+    <div class="modal-body">
+
+      <!-- Header -->
+      <div class="modal-header">
+        <div>
+          <p class="modal-step-label">Шаг 1 из 6</p>
+          <h2 class="modal-title" id="modal-title-text">Какой повод? 🎉</h2>
+        </div>
+        <button class="modal-close" aria-label="Закрыть">×</button>
+      </div>
+
+      <!-- =============== STEP 1 — Occasion =============== -->
+      <div class="modal-step">
+        <div class="chip-group">
+          <button class="chip" data-field="occasion" data-value="День рождения 🎂" data-autonext="true">День рождения 🎂</button>
+          <button class="chip" data-field="occasion" data-value="Свадьба 💍"       data-autonext="true">Свадьба 💍</button>
+          <button class="chip" data-field="occasion" data-value="Годовщина 💑"     data-autonext="true">Годовщина 💑</button>
+          <button class="chip" data-field="occasion" data-value="Выпускной 🎓"     data-autonext="true">Выпускной 🎓</button>
+          <button class="chip" data-field="occasion" data-value="Просто так 💛"    data-autonext="true">Просто так 💛</button>
+          <button class="chip" data-field="occasion" data-value="Другое 🎁"        data-autonext="true">Другое 🎁</button>
+        </div>
+      </div>
+
+      <!-- =============== STEP 2 — Genre =============== -->
+      <div class="modal-step" style="display:none">
+        <div class="chip-group">
+          <button class="chip" data-field="genre" data-value="Поп 🎵"           data-autonext="true">Поп 🎵</button>
+          <button class="chip" data-field="genre" data-value="Романтика 💕"     data-autonext="true">Романтика 💕</button>
+          <button class="chip" data-field="genre" data-value="Шансон 🎶"        data-autonext="true">Шансон 🎶</button>
+          <button class="chip" data-field="genre" data-value="Рок 🎸"           data-autonext="true">Рок 🎸</button>
+          <button class="chip" data-field="genre" data-value="Джаз 🎷"          data-autonext="true">Джаз 🎷</button>
+          <button class="chip" data-field="genre" data-value="Хип-хоп 🎤"       data-autonext="true">Хип-хоп 🎤</button>
+          <button class="chip" data-field="genre" data-value="Удивите меня ✨"  data-autonext="true">Удивите меня ✨</button>
+        </div>
+      </div>
+
+      <!-- =============== STEP 3 — Mood + Voice =============== -->
+      <div class="modal-step" style="display:none">
+        <div class="modal-subgroup">
+          <p class="modal-subgroup-label">Настроение</p>
+          <div class="chip-group">
+            <button class="chip" data-field="mood" data-value="Радостная 😄">Радостная 😄</button>
+            <button class="chip" data-field="mood" data-value="Трогательная 🥺">Трогательная 🥺</button>
+            <button class="chip" data-field="mood" data-value="Романтическая 💕">Романтическая 💕</button>
+            <button class="chip" data-field="mood" data-value="Праздничная 🎉">Праздничная 🎉</button>
+          </div>
+        </div>
+        <div class="modal-subgroup">
+          <p class="modal-subgroup-label">Голос</p>
+          <div class="chip-group">
+            <button class="chip" data-field="voice" data-value="Женский 👩">Женский 👩</button>
+            <button class="chip" data-field="voice" data-value="Мужской 👨">Мужской 👨</button>
+            <button class="chip" data-field="voice" data-value="Не важно">Не важно</button>
+          </div>
+        </div>
+        <div class="modal-btn-row">
+          <button class="btn-next" data-next="3" disabled>Далее →</button>
+        </div>
+      </div>
+
+      <!-- =============== STEP 4 — Recipient Name =============== -->
+      <div class="modal-step" style="display:none">
+        <div class="modal-input-group">
+          <input
+            type="text"
+            class="modal-input"
+            placeholder="Имя получателя..."
+            data-bind="recipientName"
+            autocomplete="off"
+          >
+          <div class="modal-btn-row">
+            <button class="btn-back" data-back="2">← Назад</button>
+            <button class="btn-next" data-next="4" disabled>Далее →</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- =============== STEP 5 — Story + Email =============== -->
+      <div class="modal-step" style="display:none">
+        <div class="modal-input-group">
+          <textarea
+            class="modal-textarea"
+            placeholder="Пример: 'Маша любит готовить по воскресеньям, всегда опаздывает, но улыбается так, что всё прощаешь. Познакомились случайно в 2019-м. Хочу сказать, что она моя опора...'"
+            data-bind="story"
+          ></textarea>
+          <input
+            type="email"
+            class="modal-input"
+            placeholder="Ваш email — куда прислать песню"
+            data-bind="email"
+            autocomplete="email"
+          >
+          <div class="modal-btn-row">
+            <button class="btn-back" data-back="3">← Назад</button>
+            <button class="btn-next" data-next="5" disabled>Далее →</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- =============== STEP 6 — Confirm + Express upsell =============== -->
+      <div class="modal-step" style="display:none">
+
+        <!-- What they get -->
+        <div class="order-summary-box">
+          <div class="order-summary-box__title">Ваша персональная песня</div>
+          <ul class="order-summary-box__features">
+            <li><span>✓</span> Уникальный текст специально для вас</li>
+            <li><span>✓</span> Профессиональная запись с живой музыкой</li>
+            <li><span>✓</span> 1 правка включена</li>
+            <li><span>✓</span> MP3-файл навсегда</li>
+          </ul>
+          <div class="order-summary-box__divider"></div>
+          <!-- Price hero block -->
+          <div class="order-price-hero">
+            <div class="order-price-hero__left">
+              <span class="order-price-hero__compare" id="modal-compare-price"></span>
+              <span class="order-price-hero__current" id="modal-total-price">€16</span>
+            </div>
+            <span class="order-price-hero__savings" id="modal-savings-badge"></span>
+          </div>
+          <div class="order-summary-box__delivery" id="modal-delivery-line">Доставка за 72ч</div>
+        </div>
+
+        <!-- Express upsell toggle -->
+        <label class="express-toggle" for="express-checkbox">
+          <div class="express-toggle__inner">
+            <div class="express-toggle__left">
+              <span class="express-toggle__icon">⚡</span>
+              <div>
+                <div class="express-toggle__title">Экспресс-доставка</div>
+                <div class="express-toggle__sub">Получите за 24ч вместо 72ч</div>
+              </div>
+            </div>
+            <div class="express-toggle__right">
+              <span class="express-toggle__plus">+€8</span>
+              <input type="checkbox" id="express-checkbox" class="express-toggle__cb">
+            </div>
+          </div>
+        </label>
+
+        <p class="modal-error" style="margin-top:8px;"></p>
+
+        <div class="modal-btn-row" style="margin-top:12px;">
+          <button class="btn-back" data-back="4">← Назад</button>
+          <button class="btn-submit">🎵 Создать мою песню</button>
+        </div>
+
+        <div class="modal-trust">
+          <span>🔒 Безопасная оплата</span>
+          <span>⚡ Быстрая доставка</span>
+        </div>
+      </div>
+
+    </div><!-- /modal-body -->
+  </div><!-- /modal-box -->
+</div><!-- /modal-overlay -->

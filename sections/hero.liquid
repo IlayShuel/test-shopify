@@ -1,0 +1,92 @@
+<section class="hero">
+  <div class="hero__bg-circle-1" aria-hidden="true"></div>
+  <div class="hero__bg-circle-2" aria-hidden="true"></div>
+
+  <div class="hero__inner">
+    <div class="hero__badge">
+      {{ section.settings.badge | default: 'Персонализированные песни на русском' }}
+    </div>
+
+    <h1 class="hero__headline">
+      {{ section.settings.headline | default: 'Подарите песню, которую' }}
+      <em>{{ section.settings.headline_em | default: 'никогда не забудут' }}</em>
+    </h1>
+
+    <p class="hero__subline">
+      {{ section.settings.subline | default: 'Расскажите нам историю близкого человека — мы создадим <strong>уникальную песню специально для него.</strong> Настоящие слова. Настоящие эмоции.' }}
+    </p>
+
+    <button class="hero__cta" data-open-modal>
+      🎵 {{ section.settings.cta_text | default: 'Создать мою песню' }}
+    </button>
+
+    <div class="hero__pills">
+      <div class="hero__pill">⚡ Доставка за 24 часа</div>
+      <div class="hero__pill">🔒 Безопасная оплата</div>
+      <div class="hero__pill">✅ Гарантия качества</div>
+      <div class="hero__pill">🌍 По всему миру</div>
+    </div>
+
+    <div class="hero__testimonial">
+      <p class="hero__testimonial-text">
+        &ldquo;{{ section.settings.testimonial_text | default: 'Моя мама заплакала. Она сказала, что это лучший подарок в её жизни.' }}&rdquo;
+      </p>
+      <p class="hero__testimonial-author">— {{ section.settings.testimonial_author | default: 'Марина, Москва' }}</p>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Hero",
+  "settings": [
+    {
+      "type": "text",
+      "id": "badge",
+      "label": "Badge text",
+      "default": "Персонализированные песни на русском"
+    },
+    {
+      "type": "text",
+      "id": "headline",
+      "label": "Headline (first part)",
+      "default": "Подарите песню, которую"
+    },
+    {
+      "type": "text",
+      "id": "headline_em",
+      "label": "Headline (italic accent)",
+      "default": "никогда не забудут"
+    },
+    {
+      "type": "richtext",
+      "id": "subline",
+      "label": "Subheadline",
+      "default": "<p>Расскажите нам историю близкого человека — мы создадим <strong>уникальную песню специально для него.</strong> Настоящие слова. Настоящие эмоции.</p>"
+    },
+    {
+      "type": "text",
+      "id": "cta_text",
+      "label": "CTA button text",
+      "default": "Создать мою песню"
+    },
+    {
+      "type": "text",
+      "id": "testimonial_text",
+      "label": "Testimonial quote",
+      "default": "Моя мама заплакала. Она сказала, что это лучший подарок в её жизни."
+    },
+    {
+      "type": "text",
+      "id": "testimonial_author",
+      "label": "Testimonial author",
+      "default": "Марина, Москва"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Hero"
+    }
+  ]
+}
+{% endschema %}

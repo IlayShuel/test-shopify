@@ -1,0 +1,65 @@
+<header class="site-header">
+  <a href="{{ routes.root_url }}" class="site-header__logo">
+    {%- if section.settings.logo -%}
+      <img
+        src="{{ section.settings.logo | image_url: width: 80, height: 80 }}"
+        alt="{{ shop.name }}"
+        class="site-header__logo-img"
+        width="40"
+        height="40"
+      >
+    {%- else -%}
+      <img
+        src="{{ 'logo.jpeg' | asset_url }}"
+        alt="{{ shop.name }}"
+        class="site-header__logo-img"
+        width="40"
+        height="40"
+      >
+    {%- endif -%}
+    <span class="site-header__logo-name">{{ section.settings.brand_name | default: 'ТвояПесня' }}</span>
+  </a>
+
+  <nav class="site-header__nav" role="navigation" aria-label="Main navigation">
+    <a href="#how" class="site-header__nav-link">Как это работает</a>
+    <a href="#samples" class="site-header__nav-link">Примеры</a>
+    <a href="#pricing" class="site-header__nav-link">Цены</a>
+    <button class="btn-order" data-open-modal aria-label="Заказать песню">
+      Заказать песню
+    </button>
+
+    <!-- Cart icon -->
+    <button
+      class="cart-icon-btn"
+      id="cart-icon-btn"
+      aria-label="Открыть корзину"
+      data-open-cart
+    >
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/>
+        <line x1="3" y1="6" x2="21" y2="6"/>
+        <path d="M16 10a4 4 0 0 1-8 0"/>
+      </svg>
+      <span class="cart-badge" id="cart-badge" aria-label="items in cart">0</span>
+    </button>
+  </nav>
+</header>
+
+{% schema %}
+{
+  "name": "Header",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Logo image"
+    },
+    {
+      "type": "text",
+      "id": "brand_name",
+      "label": "Brand name",
+      "default": "YourSong"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,123 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "YourSong",
+    "theme_version": "1.0.0",
+    "theme_author": "YourSong",
+    "theme_documentation_url": "https://yoursonggift.com",
+    "theme_support_url": "https://yoursonggift.com"
+  },
+  {
+    "name": "Favicon",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "favicon",
+        "label": "Favicon image"
+      }
+    ]
+  },
+  {
+    "name": "Checkout — Products",
+    "settings": [
+      {
+        "type": "paragraph",
+        "content": "Enter the Shopify variant IDs for your Standard and Premium products. Go to a product in your Shopify admin, click the variant, and copy the ID from the URL (the number after /variants/)."
+      },
+      {
+        "type": "number",
+        "id": "standard_variant_id",
+        "label": "Standard package — variant ID",
+        "info": "Shopify variant ID for the €20 Standard product"
+      },
+      {
+        "type": "number",
+        "id": "premium_variant_id",
+        "label": "Premium package — variant ID",
+        "info": "Shopify variant ID for the Premium product"
+      },
+      {
+        "type": "number",
+        "id": "standard_price",
+        "label": "Standard price (€)",
+        "info": "Base price shown in the order form. Must match your Shopify variant price.",
+        "default": 16
+      },
+      {
+        "type": "number",
+        "id": "premium_price",
+        "label": "Express/Premium price (€)",
+        "info": "Price shown when express delivery is selected. Must match your Shopify premium variant price.",
+        "default": 30
+      },
+      {
+        "type": "number",
+        "id": "standard_compare_price",
+        "label": "Standard compare-at price (€)",
+        "info": "Crossed-out 'original' price shown next to the standard price. Leave 0 to hide.",
+        "default": 25
+      },
+      {
+        "type": "number",
+        "id": "premium_compare_price",
+        "label": "Express compare-at price (€)",
+        "info": "Crossed-out 'original' price shown when express is selected. Leave 0 to hide.",
+        "default": 38
+      }
+    ]
+  },
+  {
+    "name": "Prices — USD (United States)",
+    "settings": [
+      {
+        "type": "paragraph",
+        "content": "Prices shown in the order form for USD customers. Must match the prices in your US market catalog."
+      },
+      {
+        "type": "number",
+        "id": "standard_price_usd",
+        "label": "Standard price ($)",
+        "default": 29
+      },
+      {
+        "type": "number",
+        "id": "premium_price_usd",
+        "label": "Express price ($)",
+        "default": 35
+      },
+      {
+        "type": "number",
+        "id": "standard_compare_price_usd",
+        "label": "Standard compare-at price ($)",
+        "info": "Crossed-out price. Leave 0 to hide.",
+        "default": 39
+      },
+      {
+        "type": "number",
+        "id": "premium_compare_price_usd",
+        "label": "Express compare-at price ($)",
+        "info": "Crossed-out price. Leave 0 to hide.",
+        "default": 45
+      }
+    ]
+  },
+  {
+    "name": "Discount codes",
+    "settings": [
+      {
+        "type": "text",
+        "id": "discount_codes",
+        "label": "Valid discount codes",
+        "info": "Comma-separated list of valid promo codes (e.g. SONG20,PROMO10). Case-insensitive.",
+        "default": "SONG20"
+      },
+      {
+        "type": "number",
+        "id": "discount_pct",
+        "label": "Discount percentage (%)",
+        "info": "Percentage off shown in the cart drawer when a code is applied. Must match the actual Shopify discount rule.",
+        "default": 20
+      }
+    ]
+  }
+]
