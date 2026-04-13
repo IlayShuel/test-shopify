@@ -99,7 +99,10 @@
             placeholder="Ваш email — куда прислать песню"
             data-bind="email"
             autocomplete="email"
+            inputmode="email"
+            aria-describedby="email-hint"
           >
+          <p class="modal-email-hint" id="email-hint" role="alert">Введите корректный email-адрес</p>
           <div class="modal-btn-row">
             <button class="btn-back" data-back="3">← Назад</button>
             <button class="btn-next" data-next="5" disabled>Далее →</button>

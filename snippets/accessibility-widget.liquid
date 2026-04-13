@@ -1,0 +1,47 @@
+<div class="a11y-widget" id="a11y-widget" aria-label="Настройки доступности">
+  <button
+    class="a11y-widget__toggle"
+    id="a11y-toggle"
+    aria-expanded="false"
+    aria-controls="a11y-panel"
+    aria-label="Открыть настройки доступности"
+  >
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <circle cx="12" cy="12" r="10"/>
+      <circle cx="12" cy="8" r="1" fill="currentColor" stroke="none"/>
+      <line x1="12" y1="11" x2="12" y2="17"/>
+    </svg>
+  </button>
+
+  <div
+    class="a11y-widget__panel"
+    id="a11y-panel"
+    role="dialog"
+    aria-label="Настройки доступности"
+    aria-modal="false"
+    hidden
+  >
+    <p class="a11y-widget__heading">Доступность</p>
+
+    <div class="a11y-widget__group" aria-label="Размер текста">
+      <span class="a11y-widget__group-label">Текст</span>
+      <div class="a11y-widget__row">
+        <button class="a11y-btn" id="a11y-font-sm" aria-label="Уменьшить текст" aria-pressed="false">А−</button>
+        <button class="a11y-btn" id="a11y-font-reset" aria-label="Стандартный размер текста" aria-pressed="true">А</button>
+        <button class="a11y-btn" id="a11y-font-lg" aria-label="Увеличить текст" aria-pressed="false">А+</button>
+      </div>
+    </div>
+
+    <div class="a11y-widget__group">
+      <button class="a11y-btn a11y-btn--wide" id="a11y-contrast" aria-pressed="false">
+        Высокий контраст
+      </button>
+    </div>
+
+    <div class="a11y-widget__group">
+      <button class="a11y-btn a11y-btn--wide" id="a11y-motion" aria-pressed="false">
+        Без анимаций
+      </button>
+    </div>
+  </div>
+</div>

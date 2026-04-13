@@ -1,0 +1,182 @@
+<section class="how-it-works" id="how" {{ block.shopify_attributes }}>
+  {% if block.settings.section_label != blank %}
+    <p class="section-label fade-in">{{ block.settings.section_label }}</p>
+  {% endif %}
+
+  {% if block.settings.section_title != blank %}
+    <h2 class="section-heading fade-in">{{ block.settings.section_title }}</h2>
+  {% endif %}
+
+  {% if block.settings.section_description != blank %}
+    <p class="section-subtext fade-in">{{ block.settings.section_description }}</p>
+  {% endif %}
+
+  <div class="how-it-works__grid fade-in">
+    {% if block.settings.step_1_enabled %}
+      <div class="step-card">
+        <div class="step-card__top-bar" aria-hidden="true"></div>
+        <div class="step-card__number" aria-hidden="true">1</div>
+        {% if block.settings.step_1_icon != blank %}
+          <span class="step-card__icon" aria-hidden="true">{{ block.settings.step_1_icon }}</span>
+        {% endif %}
+        {% if block.settings.step_1_title != blank %}
+          <div class="step-card__title">{{ block.settings.step_1_title }}</div>
+        {% endif %}
+        {% if block.settings.step_1_description != blank %}
+          <div class="step-card__desc">{{ block.settings.step_1_description }}</div>
+        {% endif %}
+      </div>
+    {% endif %}
+
+    {% if block.settings.step_2_enabled %}
+      <div class="step-card">
+        <div class="step-card__top-bar" aria-hidden="true"></div>
+        <div class="step-card__number" aria-hidden="true">2</div>
+        {% if block.settings.step_2_icon != blank %}
+          <span class="step-card__icon" aria-hidden="true">{{ block.settings.step_2_icon }}</span>
+        {% endif %}
+        {% if block.settings.step_2_title != blank %}
+          <div class="step-card__title">{{ block.settings.step_2_title }}</div>
+        {% endif %}
+        {% if block.settings.step_2_description != blank %}
+          <div class="step-card__desc">{{ block.settings.step_2_description }}</div>
+        {% endif %}
+      </div>
+    {% endif %}
+
+    {% if block.settings.step_3_enabled %}
+      <div class="step-card">
+        <div class="step-card__top-bar" aria-hidden="true"></div>
+        <div class="step-card__number" aria-hidden="true">3</div>
+        {% if block.settings.step_3_icon != blank %}
+          <span class="step-card__icon" aria-hidden="true">{{ block.settings.step_3_icon }}</span>
+        {% endif %}
+        {% if block.settings.step_3_title != blank %}
+          <div class="step-card__title">{{ block.settings.step_3_title }}</div>
+        {% endif %}
+        {% if block.settings.step_3_description != blank %}
+          <div class="step-card__desc">{{ block.settings.step_3_description }}</div>
+        {% endif %}
+      </div>
+    {% endif %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "How it works",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section content"
+    },
+    {
+      "type": "text",
+      "id": "section_label",
+      "label": "Label",
+      "default": "Как это работает"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "section_title",
+      "label": "Title",
+      "default": "Три шага до <em>вашей песни</em>"
+    },
+    {
+      "type": "textarea",
+      "id": "section_description",
+      "label": "Description",
+      "default": "Вам не нужно ничего уметь. Просто расскажите историю — остальное сделаем мы."
+    },
+    {
+      "type": "header",
+      "content": "Step 1"
+    },
+    {
+      "type": "checkbox",
+      "id": "step_1_enabled",
+      "label": "Show step 1",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "step_1_icon",
+      "label": "Icon",
+      "default": "📝"
+    },
+    {
+      "type": "text",
+      "id": "step_1_title",
+      "label": "Title",
+      "default": "Расскажите историю"
+    },
+    {
+      "type": "textarea",
+      "id": "step_1_description",
+      "label": "Description",
+      "default": "Заполните форму — имя, повод, три факта об этом человеке. Смешные воспоминания, любимые занятия, что делает его особенным."
+    },
+    {
+      "type": "header",
+      "content": "Step 2"
+    },
+    {
+      "type": "checkbox",
+      "id": "step_2_enabled",
+      "label": "Show step 2",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "step_2_icon",
+      "label": "Icon",
+      "default": "🎼"
+    },
+    {
+      "type": "text",
+      "id": "step_2_title",
+      "label": "Title",
+      "default": "Мы создаём песню"
+    },
+    {
+      "type": "textarea",
+      "id": "step_2_description",
+      "label": "Description",
+      "default": "В течение 24 часов мы пишем уникальные стихи именно про этого человека и создаём мелодию в нужном стиле."
+    },
+    {
+      "type": "header",
+      "content": "Step 3"
+    },
+    {
+      "type": "checkbox",
+      "id": "step_3_enabled",
+      "label": "Show step 3",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "step_3_icon",
+      "label": "Icon",
+      "default": "📩"
+    },
+    {
+      "type": "text",
+      "id": "step_3_title",
+      "label": "Title",
+      "default": "Получите на почту"
+    },
+    {
+      "type": "textarea",
+      "id": "step_3_description",
+      "label": "Description",
+      "default": "Готовый MP3 приходит прямо на ваш email. Включите на праздновании — и приготовьтесь к незабываемой реакции."
+    }
+  ],
+  "presets": [
+    {
+      "name": "How it works"
+    }
+  ]
+}
+{% endschema %}

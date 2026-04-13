@@ -1,0 +1,40 @@
+{% liquid
+  assign privacy_url = shop.privacy_policy.url | default: pages['privacy'].url | default: '/pages/privacy'
+  assign terms_url = shop.terms_of_service.url | default: pages['terms'].url | default: '/pages/terms'
+  assign accessibility_url = pages['accessibility'].url | default: '/pages/accessibility'
+
+  if updated_at != blank
+    assign legal_updated_at = updated_at
+  elsif handle == 'privacy' or handle == 'terms'
+    assign legal_updated_at = 'Последнее обновление: апрель 2026 г.'
+  else
+    assign legal_updated_at = 'Последнее обновление: апрель 2025'
+  endif
+%}
+
+<section class="legal-page legal-page--{{ handle }}">
+  <article class="legal-card">
+    <div class="legal-card__nav">
+      <button type="button" class="legal-card__back legal-card__back--button" data-legal-back>← Назад</button>
+      <a href="{{ routes.root_url }}" class="legal-card__home">На главную</a>
+    </div>
+
+    <header class="legal-card__header">
+      <h1 id="LegalPageTitle" class="legal-card__title">{{ title }}</h1>
+      <p class="legal-card__updated">{{ legal_updated_at }}</p>
+    </header>
+
+    <div class="legal-card__content-frame">
+      <div class="rte legal-card__content">
+        {% render 'legal-page-content', handle: handle, content_html: content_html %}
+      </div>
+    </div>
+
+    <nav class="legal-card__footer" aria-label="Юридические страницы">
+      <a href="{{ routes.root_url }}">← На главную</a>
+      <a href="{{ privacy_url }}"{% if handle == 'privacy' %} aria-current="page"{% endif %}>Политика конфиденциальности</a>
+      <a href="{{ terms_url }}"{% if handle == 'terms' %} aria-current="page"{% endif %}>Условия использования</a>
+      <a href="{{ accessibility_url }}"{% if handle == 'accessibility' %} aria-current="page"{% endif %}>Доступность</a>
+    </nav>
+  </article>
+</section>

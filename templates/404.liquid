@@ -1,0 +1,34 @@
+{% liquid
+  assign request_path = request.path | downcase
+  assign legal_page_handle = ''
+  assign legal_page_title = ''
+
+  if request_path contains '/pages/privacy' or request_path contains '/policies/privacy-policy'
+    assign legal_page_handle = 'privacy'
+    assign legal_page_title = 'Политика конфиденциальности'
+  elsif request_path contains '/pages/terms' or request_path contains '/policies/terms-of-service'
+    assign legal_page_handle = 'terms'
+    assign legal_page_title = 'Условия использования'
+  elsif request_path contains '/pages/accessibility'
+    assign legal_page_handle = 'accessibility'
+    assign legal_page_title = 'Заявление о доступности'
+  endif
+%}
+
+{% if legal_page_handle != blank %}
+  {% render 'legal-page-shell', handle: legal_page_handle, title: legal_page_title %}
+{% else %}
+  <div class="page-wrap">
+    <div class="page-breadcrumb">
+      <a href="{{ routes.root_url }}" class="page-breadcrumb__home">← На главную</a>
+    </div>
+
+    <article class="page-content">
+      <h1 class="page-content__title">Страница не найдена</h1>
+      <div class="rte page-content__body">
+        <p>Похоже, такой страницы не существует или она была перемещена.</p>
+        <p>Вернитесь на главную страницу или напишите нам на <a href="mailto:shulter@walla.co.il">shulter@walla.co.il</a>, если вам нужна помощь.</p>
+      </div>
+    </article>
+  </div>
+{% endif %}

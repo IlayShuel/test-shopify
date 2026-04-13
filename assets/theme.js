@@ -627,13 +627,16 @@
       var nb = p.querySelector('.btn-next'), sb = p.querySelector('.btn-submit');
       if (n === 2 && nb) nb.disabled = !(data.mood && data.voice);
       if (n === 3 && nb) nb.disabled = !data.recipientName.trim();
-      if (n === 4 && nb) nb.disabled = !(data.story.trim() && data.email.trim());
+      var emailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email.trim());
+      var emailHint  = stepPanels[4] && stepPanels[4].querySelector('.modal-email-hint');
+      if (emailHint) emailHint.style.display = (data.email.trim() && !emailValid) ? 'block' : 'none';
+      if (n === 4 && nb) nb.disabled = !(data.story.trim() && emailValid);
       // Step 6 submit always enabled — no required choice
     }
     function updateExpressUI(checked) {
       var cfg          = window.shopifyTheme || {};
-      var basePrice    = cfg.standardPrice        || 16;
-      var fullPrice    = cfg.premiumPrice         || 30;
+      var basePrice    = cfg.standardPrice        || 19;
+      var fullPrice    = cfg.premiumPrice         || 24;
       var compareBase  = cfg.standardComparePrice || 0;
       var compareFull  = cfg.premiumComparePrice  || 0;
       var fee          = fullPrice - basePrice;
@@ -701,6 +704,10 @@
       var cfg  = window.shopifyTheme || {};
       var vid  = data.express ? cfg.premiumVariantId : cfg.standardVariantId;
       if (!vid || vid === 0) { showError('Продукт не настроен. Пожалуйста, обратитесь в поддержку.'); return; }
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email.trim())) {
+        showError('Введите корректный email-адрес — на него придёт ваша песня.');
+        return;
+      }
 
       var sb = document.querySelector('.btn-submit');
       var eb = document.querySelector('.modal-error');
@@ -741,7 +748,240 @@
   }
 
   /* ----------------------------------------------------------
-     8. PRICING CTA
+     8. ACCESSIBILITY WIDGET
+  ---------------------------------------------------------- */
+  function initA11yWidget() {
+    var widget  = document.getElementById('a11y-widget');
+    if (!widget) return;
+    var toggle  = document.getElementById('a11y-toggle');
+    var panel   = document.getElementById('a11y-panel');
+    var html    = document.documentElement;
+
+    // Restore saved preferences
+    var prefs = {};
+    try { prefs = JSON.parse(localStorage.getItem('ys_a11y') || '{}'); } catch (e) {}
+    if (prefs.contrast) html.classList.add('high-contrast');
+    if (prefs.motion)   html.classList.add('reduce-motion');
+    if (prefs.font)     html.classList.add(prefs.font);
+    syncPressed();
+
+    function save() {
+      try { localStorage.setItem('ys_a11y', JSON.stringify(prefs)); } catch (e) {}
+    }
+
+    function syncPressed() {
+      var smBtn     = document.getElementById('a11y-font-sm');
+      var resetBtn  = document.getElementById('a11y-font-reset');
+      var lgBtn     = document.getElementById('a11y-font-lg');
+      var contrastB = document.getElementById('a11y-contrast');
+      var motionB   = document.getElementById('a11y-motion');
+      if (smBtn)    smBtn.setAttribute('aria-pressed',    prefs.font === 'font-sm' ? 'true' : 'false');
+      if (resetBtn) resetBtn.setAttribute('aria-pressed', !prefs.font ? 'true' : 'false');
+      if (lgBtn)    lgBtn.setAttribute('aria-pressed',    prefs.font === 'font-lg' ? 'true' : 'false');
+      if (contrastB) contrastB.setAttribute('aria-pressed', prefs.contrast ? 'true' : 'false');
+      if (motionB)   motionB.setAttribute('aria-pressed',   prefs.motion   ? 'true' : 'false');
+    }
+
+    function setFont(cls) {
+      html.classList.remove('font-sm', 'font-lg');
+      if (cls) html.classList.add(cls);
+      prefs.font = cls || '';
+      save(); syncPressed();
+    }
+
+    // Toggle panel open/close
+    if (toggle && panel) {
+      toggle.addEventListener('click', function () {
+        var open = panel.hasAttribute('hidden');
+        if (open) { panel.removeAttribute('hidden'); toggle.setAttribute('aria-expanded', 'true'); }
+        else       { panel.setAttribute('hidden', ''); toggle.setAttribute('aria-expanded', 'false'); }
+      });
+
+      // Close on Escape or outside click
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && !panel.hasAttribute('hidden')) {
+          panel.setAttribute('hidden', '');
+          toggle.setAttribute('aria-expanded', 'false');
+          toggle.focus();
+        }
+      });
+      document.addEventListener('click', function (e) {
+        if (!widget.contains(e.target)) {
+          panel.setAttribute('hidden', '');
+          toggle.setAttribute('aria-expanded', 'false');
+        }
+      });
+    }
+
+    // Button handlers
+    var fontSm    = document.getElementById('a11y-font-sm');
+    var fontReset = document.getElementById('a11y-font-reset');
+    var fontLg    = document.getElementById('a11y-font-lg');
+    var contrastB = document.getElementById('a11y-contrast');
+    var motionB   = document.getElementById('a11y-motion');
+
+    if (fontSm)    fontSm.addEventListener('click',    function () { setFont('font-sm'); });
+    if (fontReset) fontReset.addEventListener('click', function () { setFont(''); });
+    if (fontLg)    fontLg.addEventListener('click',    function () { setFont('font-lg'); });
+    if (contrastB) contrastB.addEventListener('click', function () {
+      prefs.contrast = !prefs.contrast;
+      html.classList.toggle('high-contrast', prefs.contrast);
+      save(); syncPressed();
+    });
+    if (motionB) motionB.addEventListener('click', function () {
+      prefs.motion = !prefs.motion;
+      html.classList.toggle('reduce-motion', prefs.motion);
+      document.querySelectorAll('.video-teaser__video').forEach(function (vid) {
+        if (prefs.motion) {
+          vid.pause();
+        } else {
+          var playPromise = vid.play();
+          if (playPromise && typeof playPromise.catch === 'function') {
+            playPromise.catch(function () {});
+          }
+        }
+      });
+      document.dispatchEvent(new CustomEvent('video-teaser:motionchange', {
+        detail: { reducedMotion: prefs.motion }
+      }));
+      save(); syncPressed();
+    });
+  }
+
+  /* ----------------------------------------------------------
+     9. LEGAL PAGES
+  ---------------------------------------------------------- */
+  function initLegalPages() {
+    var rootUrl = document.body.getAttribute('data-root-url') || '/';
+    var privacyUrl = document.body.getAttribute('data-privacy-url') || '/pages/privacy';
+    var termsUrl = document.body.getAttribute('data-terms-url') || '/pages/terms';
+    var accessibilityUrl = document.body.getAttribute('data-accessibility-url') || '/pages/accessibility';
+    var path = window.location.pathname.toLowerCase();
+
+    function goBackOrHome() {
+      try {
+        if (document.referrer) {
+          var referrer = new URL(document.referrer);
+          if (referrer.origin === window.location.origin && window.history.length > 1) {
+            window.history.back();
+            return;
+          }
+        }
+      } catch (e) {}
+
+      window.location.href = rootUrl;
+    }
+
+    function bindBackButtons(scope) {
+      (scope || document).querySelectorAll('[data-legal-back]').forEach(function (btn) {
+        if (btn.dataset.bound === 'true') return;
+        btn.dataset.bound = 'true';
+        btn.addEventListener('click', goBackOrHome);
+      });
+    }
+
+    var policyContainer = document.querySelector('.shopify-policy__container');
+    if (policyContainer && !policyContainer.querySelector('.legal-policy__nav')) {
+      var nav = document.createElement('div');
+      nav.className = 'legal-policy__nav';
+      nav.innerHTML =
+        '<button type="button" class="legal-card__back legal-card__back--button" data-legal-back>\u2190 \u041d\u0430\u0437\u0430\u0434</button>' +
+        '<a href="' + rootUrl + '" class="legal-card__home">\u041d\u0430 \u0433\u043b\u0430\u0432\u043d\u0443\u044e</a>';
+      policyContainer.insertBefore(nav, policyContainer.firstChild);
+    }
+
+    if (policyContainer && !policyContainer.querySelector('.legal-card__footer')) {
+      var footer = document.createElement('nav');
+      footer.className = 'legal-card__footer';
+      footer.setAttribute('aria-label', '\u042e\u0440\u0438\u0434\u0438\u0447\u0435\u0441\u043a\u0438\u0435 \u0441\u0442\u0440\u0430\u043d\u0438\u0446\u044b');
+      footer.innerHTML =
+        '<a href="' + rootUrl + '">\u2190 \u041d\u0430 \u0433\u043b\u0430\u0432\u043d\u0443\u044e</a>' +
+        '<a href="' + privacyUrl + '"' + (path.indexOf('/policies/privacy-policy') !== -1 || path.indexOf('/pages/privacy') !== -1 ? ' aria-current="page"' : '') + '>\u041f\u043e\u043b\u0438\u0442\u0438\u043a\u0430 \u043a\u043e\u043d\u0444\u0438\u0434\u0435\u043d\u0446\u0438\u0430\u043b\u044c\u043d\u043e\u0441\u0442\u0438</a>' +
+        '<a href="' + termsUrl + '"' + (path.indexOf('/policies/terms-of-service') !== -1 || path.indexOf('/pages/terms') !== -1 ? ' aria-current="page"' : '') + '>\u0423\u0441\u043b\u043e\u0432\u0438\u044f \u0438\u0441\u043f\u043e\u043b\u044c\u0437\u043e\u0432\u0430\u043d\u0438\u044f</a>' +
+        '<a href="' + accessibilityUrl + '"' + (path.indexOf('/pages/accessibility') !== -1 ? ' aria-current="page"' : '') + '>\u0414\u043e\u0441\u0442\u0443\u043f\u043d\u043e\u0441\u0442\u044c</a>';
+      policyContainer.appendChild(footer);
+    }
+
+    bindBackButtons(document);
+  }
+
+  /* ----------------------------------------------------------
+     10. REVIEWS CAROUSEL
+  ---------------------------------------------------------- */
+  function initReviewsCarousel() {
+    var carousel = document.querySelector('.reviews__carousel');
+    if (!carousel) return;
+    var track   = carousel.querySelector('.reviews__track');
+    var cards   = carousel.querySelectorAll('.review-card');
+    var prevBtn = carousel.querySelector('.carousel-btn--prev');
+    var nextBtn = carousel.querySelector('.carousel-btn--next');
+    var viewport = carousel.querySelector('.reviews__viewport');
+    var dots    = document.querySelectorAll('.carousel-dot');
+    var status  = document.querySelector('.carousel-status');
+    if (!track || !cards.length) return;
+
+    var cur   = 0;
+    var total = cards.length;
+
+    function cardWidth() {
+      return cards[0].offsetWidth + 20; // card + gap
+    }
+
+    function visibleCards() {
+      if (!viewport || !cards[0]) return 1;
+      return Math.max(1, Math.floor((viewport.offsetWidth + 20) / cardWidth()));
+    }
+
+    function maxIndex() {
+      return Math.max(0, total - visibleCards());
+    }
+
+    function goTo(idx) {
+      if (idx < 0) idx = 0;
+      if (idx > maxIndex()) idx = maxIndex();
+      cur = idx;
+      track.style.transform = 'translateX(-' + (cur * cardWidth()) + 'px)';
+      dots.forEach(function (d, i) {
+        d.classList.toggle('active', i === cur);
+        d.setAttribute('aria-selected', i === cur ? 'true' : 'false');
+      });
+      if (prevBtn) prevBtn.disabled = cur === 0;
+      if (nextBtn) nextBtn.disabled = cur >= maxIndex();
+      if (status) status.textContent = 'Отзыв ' + (cur + 1) + ' из ' + total;
+    }
+
+    if (prevBtn) prevBtn.addEventListener('click', function () { goTo(cur - 1); });
+    if (nextBtn) nextBtn.addEventListener('click', function () { goTo(cur + 1); });
+
+    dots.forEach(function (d) {
+      d.addEventListener('click', function () { goTo(parseInt(d.dataset.index, 10)); });
+    });
+
+    // Keyboard: left/right arrows when carousel has focus
+    carousel.addEventListener('keydown', function (e) {
+      if (e.key === 'ArrowLeft')  { goTo(cur - 1); e.preventDefault(); }
+      if (e.key === 'ArrowRight') { goTo(cur + 1); e.preventDefault(); }
+    });
+
+    // Touch / pointer swipe
+    var startX = null;
+    track.addEventListener('pointerdown', function (e) { startX = e.clientX; });
+    track.addEventListener('pointerup',   function (e) {
+      if (startX === null) return;
+      var delta = startX - e.clientX;
+      if (Math.abs(delta) > 50) goTo(delta > 0 ? cur + 1 : cur - 1);
+      startX = null;
+    });
+    track.addEventListener('pointercancel', function () { startX = null; });
+
+    // Recalculate on resize
+    window.addEventListener('resize', function () { goTo(cur); });
+
+    goTo(0);
+  }
+
+  /* ----------------------------------------------------------
+     11. PRICING CTA
   ---------------------------------------------------------- */
   function initPricingCTA() {
     document.querySelectorAll('.btn-plan[data-package]').forEach(function (btn) {
@@ -761,8 +1001,11 @@
     initFAQ();
     initMusicPlayer();
     CartDrawer.init();
+    initA11yWidget();
+    initLegalPages();
     initOrderModal();
     initPricingCTA();
+    initReviewsCarousel();
     // Cart page (only runs if on /cart)
     if (document.getElementById('cart-page-items')) CartPage.init();
   });

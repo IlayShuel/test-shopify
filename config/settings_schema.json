@@ -40,29 +40,29 @@
         "type": "number",
         "id": "standard_price",
         "label": "Standard price (€)",
-        "info": "Base price shown in the order form. Must match your Shopify variant price.",
-        "default": 16
+        "info": "Real price shown in pricing section and order form. Must match your Shopify variant price.",
+        "default": 19
       },
       {
         "type": "number",
         "id": "premium_price",
-        "label": "Express/Premium price (€)",
-        "info": "Price shown when express delivery is selected. Must match your Shopify premium variant price.",
-        "default": 30
+        "label": "Express price (€)",
+        "info": "Standard + €5 express fee. Shown when express delivery is selected. Must match your Shopify premium variant price.",
+        "default": 24
       },
       {
         "type": "number",
         "id": "standard_compare_price",
         "label": "Standard compare-at price (€)",
-        "info": "Crossed-out 'original' price shown next to the standard price. Leave 0 to hide.",
-        "default": 25
+        "info": "Crossed-out 'original' price shown next to the standard price. Set to 0 to hide (recommended — use coupon code SONG20 for discounts instead).",
+        "default": 0
       },
       {
         "type": "number",
         "id": "premium_compare_price",
         "label": "Express compare-at price (€)",
-        "info": "Crossed-out 'original' price shown when express is selected. Leave 0 to hide.",
-        "default": 38
+        "info": "Crossed-out 'original' price shown for express. Set to 0 to hide.",
+        "default": 0
       }
     ]
   },
@@ -77,27 +77,27 @@
         "type": "number",
         "id": "standard_price_usd",
         "label": "Standard price ($)",
-        "default": 29
+        "default": 21
       },
       {
         "type": "number",
         "id": "premium_price_usd",
         "label": "Express price ($)",
-        "default": 35
+        "default": 26
       },
       {
         "type": "number",
         "id": "standard_compare_price_usd",
         "label": "Standard compare-at price ($)",
         "info": "Crossed-out price. Leave 0 to hide.",
-        "default": 39
+        "default": 0
       },
       {
         "type": "number",
         "id": "premium_compare_price_usd",
         "label": "Express compare-at price ($)",
         "info": "Crossed-out price. Leave 0 to hide.",
-        "default": 45
+        "default": 0
       }
     ]
   },

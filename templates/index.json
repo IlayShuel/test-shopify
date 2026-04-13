@@ -1,1 +1,94 @@
-{"sections":{"hero":{"type":"hero","settings":{}},"how-it-works":{"type":"how-it-works","blocks":{"step-1":{"type":"step","settings":{"icon":"📝","title":"Расскажите историю","description":"Заполните форму — имя, повод и несколько деталей об этом человеке. Смешные воспоминания, любимые увлечения, что делает его особенным."}},"step-2":{"type":"step","settings":{"icon":"🎼","title":"Мы пишем песню","description":"В течение 24 часов мы создаём уникальные слова об этом конкретном человеке и мелодию в выбранном вами стиле."}},"step-3":{"type":"step","settings":{"icon":"📩","title":"Получите на почту","description":"Готовый MP3 придёт прямо на вашу почту. Включите его на праздновании — и готовьтесь к незабываемой реакции."}}},"settings":{}},"music-player":{"type":"music-player","settings":{}},"reviews":{"type":"reviews","blocks":{"review-1":{"type":"review","settings":{"text":"Заказала для мамы на 60-летие. Когда она услышала своё имя и наши общие воспоминания в песне — заплакала. Сказала, что это лучший подарок в её жизни.","name":"Марина К.","location":"Москва"}},"review-2":{"type":"review","settings":{"text":"Муж лишился дара речи. Я включила на нашу годовщину — там рассказывалось о нашем первом свидании, слово в слово. Он до сих пор слушает это каждое утро.","name":"Анна Р.","location":"Берлин"}},"review-3":{"type":"review","settings":{"text":"Сделали для сына перед армией. Вся семья плакала. Даже дедушка, который никогда не плачет, не смог сдержаться. Невероятно личное и трогательное.","name":"Елена С.","location":"Прага"}},"review-4":{"type":"review","settings":{"text":"На юбилей папы — он совсем не ожидал. Мы включили в конце вечера, и все замолчали. Потом — аплодисменты. Ни один подарок не имел такого эффекта.","name":"Дмитрий В.","location":"Вена"}},"review-5":{"type":"review","settings":{"text":"Заказала на свадьбу лучшей подруги как сюрприз. Невеста плакала, все гости тоже. Рекомендую всем!","name":"Оля Б.","location":"Барселона"}}},"settings":{}},"pricing":{"type":"pricing","blocks":{"plan-1":{"type":"plan","settings":{"tier_name":"Standard","currency_symbol":"€","price_number":"20","description":"Для особого момента","features":"Уникальные слова, написанные специально для вас\nПрофессиональная запись с музыкой\nДоставка в течение 24 часов\nMP3-файл — ваш навсегда\n1 бесплатная правка","cta_label":"Заказать","package_key":"standard","popular":false}},"plan-2":{"type":"plan","settings":{"tier_name":"Premium","currency_symbol":"€","price_number":"30","description":"Для незабываемого подарка","features":"Уникальные слова, написанные специально для вас\nПрофессиональная запись с музыкой\nСрочная доставка за 12 часов\n2 варианта песни на выбор\nВидео с текстом для соцсетей\n3 бесплатные правки\nФайлы MP3 + WAV","cta_label":"Заказать сейчас","package_key":"premium","popular":true}}},"settings":{}},"trust":{"type":"trust","blocks":{"trust-1":{"type":"trust_item","settings":{"icon":"🔒","title":"Безопасная оплата","description":"Платежи защищены международным стандартом PCI DSS. Ваши данные карты никогда не попадают к нам."}},"trust-2":{"type":"trust_item","settings":{"icon":"⚡","title":"Быстрая доставка","description":"Песня отправляется на ваш email в течение 24–72 часов после оплаты — гарантированно."}},"trust-3":{"type":"trust_item","settings":{"icon":"🎵","title":"Только для вас","description":"Каждая песня пишется с нуля специально под вашу историю. Никаких шаблонов."}},"trust-4":{"type":"trust_item","settings":{"icon":"✅","title":"Гарантия качества","description":"Не понравился результат? Пакет Premium включает бесплатный раунд правок."}}},"settings":{}},"faq":{"type":"faq","blocks":{"faq-1":{"type":"faq_item","settings":{"question":"Насколько личной будет песня?","answer":"Каждая песня пишется с нуля специально для вас. Мы используем имя, историю и детали, которые вы нам сообщаете. Никаких шаблонов."}},"faq-2":{"type":"faq_item","settings":{"question":"Что если результат мне не понравится?","answer":"Мы предлагаем бесплатные правки — 1 для стандартного пакета, 3 для премиума. Просто напишите нам, и мы переделаем."}},"faq-3":{"type":"faq_item","settings":{"question":"Как быстро я получу песню?","answer":"Стандарт — в течение 24 часов. Премиум — в течение 12 часов. Готовый MP3 отправляется прямо на вашу почту."}},"faq-4":{"type":"faq_item","settings":{"question":"Это живые певцы или ИИ?","answer":"Мы используем передовые технологии ИИ. Качество профессиональное — большинство слушателей не могут отличить от живой записи."}},"faq-5":{"type":"faq_item","settings":{"question":"Могу ли я использовать песню публично?","answer":"Да. Песня полностью ваша. Включайте на праздниках, публикуйте в соцсетях, делитесь с близкими."}}},"settings":{}}},"order":["hero","how-it-works","music-player","reviews","pricing","trust","faq"]}
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "hero": {
+      "type": "hero",
+      "settings": {
+        "badge": "Персонализированные песни на русском",
+        "headline": "Подарите песню, которую",
+        "headline_em": "никогда не забудут",
+        "subline": "<p>Расскажите нам историю близкого человека — мы создадим <strong>уникальную песню специально для него.</strong> Настоящие слова. Настоящие эмоции.</p>",
+        "cta_text": "Создать мою песню",
+        "testimonial_text": "Моя мама заплакала. Она сказала, что это лучший подарок в её жизни.",
+        "testimonial_author": "Марина, Москва"
+      }
+    },
+    "17760950116a56d8c2": {
+      "type": "_blocks",
+      "blocks": {
+        "ai_gen_block_96484e3_RqxapB": {
+          "type": "ai_gen_block_96484e3",
+          "settings": {
+            "section_label": "Как это работает",
+            "section_title": "Три шага до <em>вашей песни</em>",
+            "section_description": "Вам не нужно ничего уметь. Просто расскажите историю — остальное сделаем мы.",
+            "step_1_enabled": true,
+            "step_1_icon": "📝",
+            "step_1_title": "Расскажите историю",
+            "step_1_description": "Заполните форму — имя, повод, три факта об этом человеке. Смешные воспоминания, любимые занятия, что делает его особенным.",
+            "step_2_enabled": true,
+            "step_2_icon": "🎼",
+            "step_2_title": "Мы создаём песню",
+            "step_2_description": "В течение 24 часов мы пишем уникальные стихи именно про этого человека и создаём мелодию в нужном стиле.",
+            "step_3_enabled": true,
+            "step_3_icon": "📩",
+            "step_3_title": "Получите на почту",
+            "step_3_description": "Готовый MP3 приходит прямо на ваш email. Включите на праздновании — и приготовьтесь к незабываемой реакции."
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "ai_gen_block_96484e3_RqxapB"
+      ],
+      "settings": {}
+    },
+    "video-teaser": {
+      "type": "video-teaser",
+      "settings": {
+        "label": "Смотрите сами",
+        "heading": "Вот как это",
+        "heading_em": "выглядит в жизни",
+        "video_aria": "Видео о персонализированной песне"
+      }
+    },
+    "music-player": {
+      "type": "music-player",
+      "settings": {}
+    },
+    "reviews": {
+      "type": "reviews",
+      "settings": {}
+    },
+    "pricing": {
+      "type": "pricing",
+      "settings": {}
+    },
+    "trust": {
+      "type": "trust",
+      "settings": {}
+    },
+    "faq": {
+      "type": "faq",
+      "settings": {}
+    }
+  },
+  "order": [
+    "hero",
+    "17760950116a56d8c2",
+    "video-teaser",
+    "music-player",
+    "reviews",
+    "pricing",
+    "trust",
+    "faq"
+  ]
+}

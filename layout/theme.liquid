@@ -6,7 +6,24 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, height=device-height, minimum-scale=1.0">
   <meta name="theme-color" content="#FDF6EE">
 
-  <title>{{ page_title }}{% if current_tags %} – {{ current_tags | join: ', ' }}{% endif %}{% if current_page != 1 %} – {{ 'general.meta.page' | t }} {{ current_page }}{% endif %}{% unless page_title contains shop.name %} – {{ shop.name }}{% endunless %}</title>
+  {% liquid
+    assign request_path = request.path | downcase
+    assign legal_page_handle = ''
+    assign legal_page_title = ''
+
+    if page.handle == 'privacy' or request_path contains '/pages/privacy' or request_path contains '/policies/privacy-policy'
+      assign legal_page_handle = 'privacy'
+      assign legal_page_title = 'Политика конфиденциальности'
+    elsif page.handle == 'terms' or request_path contains '/pages/terms' or request_path contains '/policies/terms-of-service'
+      assign legal_page_handle = 'terms'
+      assign legal_page_title = 'Условия использования'
+    elsif page.handle == 'accessibility' or request_path contains '/pages/accessibility'
+      assign legal_page_handle = 'accessibility'
+      assign legal_page_title = 'Заявление о доступности'
+    endif
+  %}
+
+  <title>{% if legal_page_title != blank %}{{ legal_page_title }}{% else %}{{ page_title }}{% if current_tags %} - {{ current_tags | join: ', ' }}{% endif %}{% if current_page != 1 %} - {{ 'general.meta.page' | t }} {{ current_page }}{% endif %}{% unless page_title contains shop.name %} - {{ shop.name }}{% endunless %}{% endif %}</title>
 
   {% if page_description %}
     <meta name="description" content="{{ page_description | escape }}">
@@ -28,19 +45,36 @@
   {{ 'theme.css' | asset_url | stylesheet_tag }}
 </head>
 
-<body class="template-{{ template | replace: '.', ' ' | truncatewords: 1, '' | handle }}">
+<body
+  class="template-{{ template | replace: '.', ' ' | truncatewords: 1, '' | handle }}{% if legal_page_handle != blank %} body--legal-page body--legal-page-{{ legal_page_handle }}{% endif %}"
+  data-root-url="{{ routes.root_url }}"
+  data-privacy-url="{{ shop.privacy_policy.url | default: pages['privacy'].url | default: '/pages/privacy' }}"
+  data-terms-url="{{ shop.terms_of_service.url | default: pages['terms'].url | default: '/pages/terms' }}"
+  data-accessibility-url="{{ pages['accessibility'].url | default: '/pages/accessibility' }}"
+>
+
+  <a class="skip-link" href="#MainContent">Перейти к основному содержимому</a>
 
   {%- section 'announcement-bar' -%}
-  {%- section 'header' -%}
+  {% unless legal_page_handle != blank %}
+    {%- section 'header' -%}
+  {% endunless %}
 
-  <main id="MainContent" role="main" tabindex="-1">
+  <main
+    id="MainContent"
+    role="main"
+    tabindex="-1"
+    class="main-content{% if legal_page_handle != blank %} main-content--legal{% endif %}"
+  >
     {{ content_for_layout }}
   </main>
 
-  {%- section 'footer' -%}
+  {% unless legal_page_handle != blank %}
+    {%- section 'footer' -%}
 
-  {%- render 'order-modal' -%}
-  {%- render 'cart-drawer' -%}
+    {%- render 'order-modal' -%}
+    {%- render 'cart-drawer' -%}
+  {% endunless %}
 
   <script>
     // Pass Shopify data to JS
@@ -55,19 +89,21 @@
       currencyCode: "{{ localization.country.currency.iso_code }}",
       currencySymbol: "{{ localization.country.currency.symbol | escape }}",
       {% if localization.country.currency.iso_code == 'USD' %}
-      standardPrice: {{ settings.standard_price_usd | default: 29 }},
-      premiumPrice: {{ settings.premium_price_usd | default: 35 }},
+      standardPrice: {{ settings.standard_price_usd | default: 21 }},
+      premiumPrice: {{ settings.premium_price_usd | default: 26 }},
       standardComparePrice: {{ settings.standard_compare_price_usd | default: 0 }},
       premiumComparePrice: {{ settings.premium_compare_price_usd | default: 0 }}
       {% else %}
-      standardPrice: {{ settings.standard_price | default: 16 }},
-      premiumPrice: {{ settings.premium_price | default: 30 }},
+      standardPrice: {{ settings.standard_price | default: 19 }},
+      premiumPrice: {{ settings.premium_price | default: 24 }},
       standardComparePrice: {{ settings.standard_compare_price | default: 0 }},
       premiumComparePrice: {{ settings.premium_compare_price | default: 0 }}
       {% endif %}
     };
   </script>
   <script src="{{ 'theme.js' | asset_url }}" defer></script>
+
+  {%- render 'accessibility-widget' -%}
 
 </body>
 </html>

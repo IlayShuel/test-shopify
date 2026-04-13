@@ -1,0 +1,12 @@
+{% if content_html != blank %}
+  {{ content_html }}
+{% else %}
+  {% case handle %}
+    {% when 'privacy' %}
+      {% render 'legal-content-privacy' %}
+    {% when 'terms' %}
+      {% render 'legal-content-terms' %}
+    {% when 'accessibility' %}
+      {% render 'legal-content-accessibility' %}
+  {% endcase %}
+{% endif %}
